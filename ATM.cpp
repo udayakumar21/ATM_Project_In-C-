@@ -1,6 +1,4 @@
-#include<conio.h>
-#include<iostream>
-#include<string>
+#include<bits/stdc++.h>
 using namespace std;
 
 /* Mini Project - ATM
@@ -98,8 +96,6 @@ public:											// public member functions
 
 };
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
 	int choice = 0, enterPIN;		//enterPIN and enterAccountNo. ---> user authentication
@@ -109,7 +105,7 @@ int main()
 
 	// created User ( object )
 	atm user1;
-	// Set User Details ( into object )         ( Setting Default Data )
+	// Set User Details ( into object )        ( Setting Default Data )
 	user1.setData(404402, "User", 1111, 45000.90, "8867983747");
 
 
