@@ -1,202 +1,141 @@
-#include<bits/stdc++.h>
+#include <iostream> // Input/output stream
+#include <string>   // String manipulation
+#include <cstdlib>  // For exit() function
+#include <conio.h> // For _getch() function
+
 using namespace std;
 
-/* Mini Project - ATM
-   -> Check Balance
-   -> Cash withdraw
-   -> User Details
-   -> Update Mobile No.
-*/
+class atm {
+private:
+    long int account_No; // User's account number
+    string name;         // User's name
+    int PIN;             // User's personal identification number (PIN)
+    double balance;      // User's bank balance
+    string mobile_No;    // User's mobile number
 
-class atm										// class atm 
-{
-private:										// private member varibles
-	long int account_No;
-	string name;
-	int PIN;
-	double balance;
-	string mobile_No;
+public:
+    void setData(long int account_No_a, string name_a, int PIN_a, double balance_a, string mobile_No_a) {
+        account_No = account_No_a; // Assigning user's account number
+        name = name_a;             // Assigning user's name
+        PIN = PIN_a;               // Assigning user's PIN
+        balance = balance_a;       // Assigning user's bank balance
+        mobile_No = mobile_No_a;   // Assigning user's mobile number
+    }
 
-public:											// public member functions
+    long int getAccountNo() {
+        return account_No; // Retrieving user's account number
+    }
 
-	// setData function is setting the Data into the private member variables
-	void setData(long int account_No_a, string name_a, int PIN_a, double balance_a, string mobile_No_a)
-	{
-		account_No = account_No_a;	 // assigning the formal arguments to the private member var's
-		name = name_a;
-		PIN = PIN_a;
-		balance = balance_a;
-		mobile_No = mobile_No_a;
-	}
+    string getName() {
+        return name; // Retrieving user's name
+    }
 
-	//getAccountNo function is returning the user's account no.
-	long int getAccountNo()
-	{
-		return account_No;
-	}
-	
-	//getName function is returning the user's Name
-	string getName()
-	{
-		return name;
-	}
+    int getPIN() {
+        return PIN; // Retrieving user's PIN
+    }
 
-	//getPIN function is returning the user's PIN
-	int getPIN()
-	{
-		return PIN;
-	}
+    double getBalance() {
+        return balance; // Retrieving user's bank balance
+    }
 
-	//getBalance is returning the user's Bank Balance
-	double getBalance()
-	{
-		return balance;
-	}
+    string getMobileNo() {
+        return mobile_No; // Retrieving user's mobile number
+    }
 
-	//getMobileNo is returning the user's Mobile No.
-	string getMobileNo()
-	{
-		return mobile_No;
-	}
+    void setMobile(string mob_prev, string mob_new) {
+        if (mob_prev == mobile_No) {
+            mobile_No = mob_new; // Updating user's mobile number if old number matches
+            cout << endl << "Successfully Updated Mobile no.";
+            cin.ignore(); // instead of _getch()
+        } else {
+            cout << endl << "Incorrect !!! Old Mobile no";
+            cin.ignore(); // instead of _getch()
+        }
+    }
 
-	//setMobile function is Updating the user mobile no
-	void setMobile(string mob_prev, string mob_new)		
-	{
-		if (mob_prev == mobile_No)						// it will check old Mobile no
-		{
-			mobile_No = mob_new;						// and Update with new, if old matches
-			cout << endl << "Sucessfully Updated Mobile no.";
-			_getch();				//getch is to hold the screen ( untill user press any key )																			
-		}
-
-		else							// Does not update if old mobile no. does not matches
-		{
-			cout << endl << "Incorrect !!! Old Mobile no";
-			_getch();			  //getch is to hold the screen ( untill user press any key )
-		}
-	}
-
-	//cashWithDraw function is used to withdraw money from ATM
-	void cashWithDraw(int amount_a)
-	{
-		if (amount_a > 0 && amount_a < balance)		// check entered amount validity
-		{
-			balance -= amount_a;		// balance = balance - amount_a
-			cout << endl << "Please Collect Your Cash";
-			cout << endl << "Available Balance :" << balance;
-			_getch();				//getch is to hold the screen(untill user press any key )
-		}
-
-		else
-		{
-			cout << endl << "Invalid Input or Insufficient Balance";
-			_getch();				//getch is to hold the screen ( untill user press any key )
-		}
-	}
-
+    void cashWithDraw(int amount_a) {
+        if (amount_a > 0 && amount_a <= balance) {
+            balance -= amount_a; // Withdraw money if amount is valid and sufficient balance is available
+            cout << endl << "Please Collect Your Cash";
+            cout << endl << "Available Balance :" << balance;
+            cin.ignore(); // instead of _getch()
+        } else {
+            cout << endl << "Invalid Input or Insufficient Balance";
+            cin.ignore(); // instead of _getch()
+        }
+    }
 };
 
-int main()
-{
-	int choice = 0, enterPIN;		//enterPIN and enterAccountNo. ---> user authentication
-	long int enterAccountNo;
+int main() {
+    int choice = 0, enterPIN;
+    long int enterAccountNo;
 
-	system("cls");
+    atm user1;
+    user1.setData(404402, "Udayakumar", 1111, 45000.90, "8867983747");
 
-	// created User ( object )
-	atm user1;
-	// Set User Details ( into object )        ( Setting Default Data )
-	user1.setData(404402, "User", 1111, 45000.90, "8867983747");
+    do {
+        cout << endl << "****Welcome to ATM*****" << endl;
+        cout << endl << "Enter Your Account No ";
+        cin >> enterAccountNo;
+        cout << endl << "Enter PIN ";
+        cin >> enterPIN;
 
+        if ((enterAccountNo == user1.getAccountNo()) && (enterPIN == user1.getPIN())) {
+            do {
+                int amount = 0;
+                string oldMobileNo, newMobileNo;
 
-	do
-	{
-		system("cls");
+                cout << endl << "**** Welcome to ATM *****" << endl;
+                cout << endl << "Select Options ";
+                cout << endl << "1. Check Balance";
+                cout << endl << "2. Cash withdraw";
+                cout << endl << "3. Show User Details";
+                cout << endl << "4. Update Mobile no.";
+                cout << endl << "5. Exit" << endl;
+                cin >> choice;
 
-		cout << endl << "****Welcome to ATM*****" << endl;
-		cout << endl << "Enter Your Account No ";	  // asking user to enter account no
-		cin >> enterAccountNo;
+                switch (choice) {
+                case 1:
+                    cout << endl << "Your Bank balance is :" << user1.getBalance();
+                    cin.ignore();
+                    break;
 
-		cout << endl << "Enter PIN ";				 // asking user to enter PIN
-		cin >> enterPIN;
+                case 2:
+                    cout << endl << "Enter the amount :";
+                    cin >> amount;
+                    user1.cashWithDraw(amount);
+                    break;
 
+                case 3:
+                    cout << endl << "*** User Details are :- ";
+                    cout << endl << "-> Account no" << user1.getAccountNo();
+                    cout << endl << "-> Name      " << user1.getName();
+                    cout << endl << "-> Balance   " << user1.getBalance();
+                    cout << endl << "-> Mobile No." << user1.getMobileNo();
+                    cin.ignore();
+                    break;
 
+                case 4:
+                    cout << endl << "Enter Old Mobile No. ";
+                    cin >> oldMobileNo;
+                    cout << endl << "Enter New Mobile No. ";
+                    cin >> newMobileNo;
+                    user1.setMobile(oldMobileNo, newMobileNo);
+                    break;
 
-		// check whether enter values matches with user details
-		if ((enterAccountNo == user1.getAccountNo()) && (enterPIN == user1.getPIN()))
-		{
-			do
-			{
-				int amount = 0;
-				string oldMobileNo, newMobileNo;
+                case 5:
+                    return 0; // Terminate program
+                    break;
 
-				system("cls");
-				// user Interface
-				cout << endl << "**** Welcome to ATM *****" << endl;
-				cout << endl << "Select Options ";
-				cout << endl << "1. Check Balance";
-				cout << endl << "2. Cash withdraw";
-				cout << endl << "3. Show User Details";
-				cout << endl << "4. Update Mobile no.";
-				cout << endl << "5. Exit" << endl;
-				cin >> choice;						// taking user choice
+                default:
+                    cout << endl << "Enter Valid Data !!!";
+                }
+            } while (1);
+        } else {
+            cout << endl << "User Details are Invalid !!! ";
+            cin.ignore();
+        }
+    } while (1);
 
-				switch (choice)						// switch condition
-				{
-				case 1:								// if user presses 1 
-					cout << endl << "Your Bank balance is :" << user1.getBalance(); 
-													// getBalance is ... printing the users									bank balance
-					_getch();
-					break;
-
-
-				case 2:									// if user presses 2
-					cout << endl << "Enter the amount :";		
-					cin >> amount;
-					user1.cashWithDraw(amount);			// calling cashWithdraw function 
-													    // passing the withdraw amount 
-					break;
-
-
-				case 3:										// if user presses 3
-					cout << endl << "*** User Details are :- ";
-					cout << endl << "-> Account no" << user1.getAccountNo();
-					cout << endl << "-> Name      " << user1.getName();
-					cout << endl << "-> Balance   " << user1.getBalance();
-					cout << endl << "-> Mobile No." << user1.getMobileNo();
-													// getting and printing user details
-					_getch();
-					break;
-
-
-				case 4:								   //  if user presses 4
-					cout << endl << "Enter Old Mobile No. ";
-					cin >> oldMobileNo;							// take old mobile no
-
-					cout << endl << "Enter New Mobile No. ";
-					cin >> newMobileNo;							// take new mobile no
-
-					user1.setMobile(oldMobileNo, newMobileNo);	// now set new mobile no
-					break;
-
-													// if user presses 5
-				case 5:
-					exit(0);						// exit application
-
-				default:							// handle invalid user inputs
-					cout << endl << "Enter Valid Data !!!";
-				} 
-
-			} while (1);				// MENU	   // condition will always TRUE and loop is										capable of running infinite times
-		}
-
-		else
-		{
-			cout << endl << "User Details are Invalid !!! ";
-			_getch();
-		}
-	} while (1);						//LOGIN		// condition will always TRUE and loop is										capable of running infinite times
-
-	return 0;
+    return 0;
 }
-
