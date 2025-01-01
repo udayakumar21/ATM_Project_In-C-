@@ -1,6 +1,6 @@
-#include <iostream> // Input/output stream
-#include <string>   // String manipulation
-#include <cstdlib>  // For exit() function
+#include <iostream> 
+#include <string>  
+#include <cstdlib>  
 #include <conio.h> // For _getch() function
 
 using namespace std;
@@ -23,7 +23,7 @@ public:
     }
 
     long int getAccountNo() {
-        return account_No; // Retrieving user's account number
+        return account_No; 
     }
 
     string getName() {
